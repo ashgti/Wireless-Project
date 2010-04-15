@@ -8,9 +8,9 @@
   android:layout_width="wrap_content"
   android:layout_height="wrap_content">
 <Button android:onClick="correctAnswer" android:text="A1" android:id="@+id/Answer1" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-<Button android:text="A2" android:id="@+id/Answer2" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-<Button android:text="A3" android:id="@+id/Answer3" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-<Button android:text="A4" android:id="@+id/Answer4" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+<Button android:onClick="wrongAnswer" android:text="A2" android:id="@+id/Answer2" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+<Button android:onClick="wrongAnswer" android:text="A3" android:id="@+id/Answer3" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+<Button android:onClick="wrongAnswer" android:text="A4" android:id="@+id/Answer4" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
 </LinearLayout>
 
 </LinearLayout>
