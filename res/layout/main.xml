@@ -9,6 +9,6 @@
     android:text="@string/hello"
     android:layout_gravity="center_horizontal"/>
     
-<Button android:text="@string/NewGame" android:id="@+id/NewGame" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+<Button android:text="@string/NewGame" android:id="@+id/NewGame" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="newGame"></Button>
 <Button android:text="@string/HighScores" android:id="@+id/HighScores" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
 </LinearLayout>
