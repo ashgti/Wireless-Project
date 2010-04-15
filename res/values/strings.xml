@@ -2,4 +2,6 @@
 <resources>
     <string name="hello">Hello World, AuburnTriviaGame!</string>
     <string name="app_name">Auburn Trivia Game</string>
+<string name="NewGame">New Game</string>
+<string name="HighScores">High Scores</string>
 </resources>
