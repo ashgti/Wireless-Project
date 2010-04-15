@@ -3,14 +3,17 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content">
-<TextView android:text="Question?" android:id="@+id/Question" android:layout_height="wrap_content" android:layout_width="fill_parent"></TextView>
+
 <LinearLayout
   android:layout_width="wrap_content"
-  android:layout_height="wrap_content">
-<Button android:onClick="correctAnswer" android:text="A1" android:id="@+id/Answer1" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-<Button android:text="A2" android:id="@+id/Answer2" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-<Button android:text="A3" android:id="@+id/Answer3" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-<Button android:text="A4" android:id="@+id/Answer4" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+  android:layout_height="wrap_content"
+  android:orientation ="vertical">
+  <TextView android:text="Who is the current head coach of Auburn Football?" android:id="@+id/Question" android:layout_height="wrap_content" android:layout_width="fill_parent"></TextView>
+<Button android:onClick="correctAnswer" android:text="A1" android:id="@+id/Answer1" android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
+<Button android:text="A2" android:id="@+id/Answer2" android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
+<Button android:text="A3" android:id="@+id/Answer3" android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
+<Button android:text="A4" android:id="@+id/Answer4" android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
+ <TextView android:text="" android:id="@+id/wrongAnswerAlert" android:layout_height="wrap_content" android:layout_width="fill_parent"></TextView>
 </LinearLayout>
 
 </LinearLayout>
