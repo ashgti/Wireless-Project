@@ -9,17 +9,19 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class Questions extends Activity {
+	int score;
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questions);
         setCurrentQuestion();
+        score = 0;
     }
     
-    public void correctAnswer(View view) {
+    public void wrongAnswer(View view) {
     	Intent resultIntent = new Intent();
-    	resultIntent.putExtra("result", 1);
+    	resultIntent.putExtra("result", score);
     	setResult(Activity.RESULT_OK, resultIntent);
     	finish();
     }
@@ -36,4 +38,8 @@ public class Questions extends Activity {
     	wrongAnswer3.setText("Trooper Taylor");
 	}
     
+    public void correctAnswer(View view) {
+    	score += 1;
+    }
+
 }

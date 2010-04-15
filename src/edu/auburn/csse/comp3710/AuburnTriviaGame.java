@@ -1,9 +1,11 @@
 package edu.auburn.csse.comp3710;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 public class AuburnTriviaGame extends Activity {
     /** Called when the activity is first created. */
@@ -25,7 +27,12 @@ public class AuburnTriviaGame extends Activity {
       	case (1) : { 
       		if (resultCode == Activity.RESULT_OK) { 
       			int tabIndex = data.getIntExtra("result", 0);
-      			// TODO Switch tabs using the index.
+      			Context context = getApplicationContext();
+      			CharSequence text = "Correct Answers: " + Integer.toString(tabIndex);
+      			int duration = Toast.LENGTH_SHORT;
+
+      			Toast toast = Toast.makeText(context, text, duration);
+      			toast.show();
       		} 
       		break; 
       	} 
