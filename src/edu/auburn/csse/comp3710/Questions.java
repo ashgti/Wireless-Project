@@ -23,15 +23,11 @@ public class Questions extends Activity {
         QuestionDB = new DataHelper(this);
         setCurrentQuestion();
         
-        score = 0;
-        
+        score = 0;   
     }
     
     public void wrongAnswer(View view) {
-    	Intent resultIntent = new Intent();
-    	resultIntent.putExtra("result", score);
-    	setResult(Activity.RESULT_OK, resultIntent);
-    	finish();
+    	endQuestions();
     }
     
     public void setCurrentQuestion() {
@@ -54,6 +50,20 @@ public class Questions extends Activity {
     
     public void correctAnswer(View view) {
     	score += 1;
+    	updateQuestions();
+    }
+    
+    public void endQuestions() {
+    	Intent resultIntent = new Intent();
+    	resultIntent.putExtra("result", score);
+    	setResult(Activity.RESULT_OK, resultIntent);
+    	finish();
+    }
+    
+    public void updateQuestions() {
+    	if (score >= 10) {
+    		endQuestions();
+    	}
     }
 
 }
