@@ -17,6 +17,8 @@ public class AuburnTriviaGame extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        startActivity(new Intent(this, AuburnTriviaSplash.class));
     }
     
     public void newGame(View v) {

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, AuburnTriviaGame!</string>
+    <string name="hello">Welcome to the\nAuburn Trivia Game!</string>
     <string name="app_name">Auburn Trivia Game</string>
 <string name="NewGame">New Game</string>
 <string name="HighScores">High Scores</string>
+<string name="SplashText">By: Logan Cannon and John Harrison</string>
 </resources>

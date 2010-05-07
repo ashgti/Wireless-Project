@@ -13,6 +13,8 @@
         </activity>
 
     <activity android:name="Questions"></activity>
+    <activity android:name=".AuburnTriviaSplash"></activity>
+    
 </application>
     <uses-sdk android:minSdkVersion="4" />
 
