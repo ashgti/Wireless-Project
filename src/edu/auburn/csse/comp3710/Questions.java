@@ -1,16 +1,24 @@
 package edu.auburn.csse.comp3710;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+
 import edu.auburn.csse.comp3710.R;
 import edu.auburn.csse.comp3710.DataHelper.QuestionTypes;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Questions extends Activity {
 	int score;
+	QuestionTypes topic;
 	public DataHelper QuestionDB;
 	int difficulty = 1;
 	int QuestionCount = 1;
@@ -19,9 +27,35 @@ public class Questions extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("onCreate", "Called");
         
+        Bundle extras = getIntent().getExtras();
+        difficulty = extras.getInt("difficulty") + 1;
         
-        //initialize db
+        // "Any", "Engineering", "Sports", "General"
+        switch (extras.getInt("topic")) {
+        case 0:
+        	topic = QuestionTypes.Any;
+        	break;
+        case 1:
+        	topic = QuestionTypes.Eng;
+        	break;
+        case 2:
+        	topic = QuestionTypes.Sports;
+        	break;
+        case 3:
+        	topic = QuestionTypes.General;
+        	break;
+        }
+        
+        Context context = getApplicationContext();
+        CharSequence text = "Difficulty: " + Integer.toString(difficulty);
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+        
+        // initialize db
         QuestionDB = new DataHelper(this);
         setContentView(R.layout.questions);
         nextQuestion(); 
@@ -29,37 +63,62 @@ public class Questions extends Activity {
         score = 0;   
     }
     
-    public void wrongAnswer(View view) {
-    	endQuestions();
-    }
-    
     public void setCurrentQuestion(int difficulty) {
-    	Question currentQuestion = new Question(QuestionDB, difficulty);
+    	Question currentQuestion = new Question(QuestionDB, difficulty, topic);
     	String[] WrongAnswers = currentQuestion.getWrongAnswers();
     	//TODO: Dynamically change order so first answer is not always the correct answer 
-    	
-    	try{
-    	TextView question = (TextView)findViewById(R.id.Question);
-    	question.setText(currentQuestion.getQuestion());
-    	Button correctAnswer = (Button)findViewById(R.id.Answer1);
-    	correctAnswer.setText(currentQuestion.getCorrectAnswer());
-    	Button wrongAnswer1 = (Button)findViewById(R.id.Answer2);
-    	wrongAnswer1.setText(WrongAnswers[0]);
-    	Button wrongAnswer2 = (Button)findViewById(R.id.Answer3);
-    	wrongAnswer2.setText(WrongAnswers[1]);
-    	Button wrongAnswer3 = (Button)findViewById(R.id.Answer4);
-    	wrongAnswer3.setText(WrongAnswers[2]);
+    	try {
+	    	TextView question = (TextView)findViewById(R.id.Question);
+	    	question.setText(currentQuestion.getQuestion());
+	    	
+	    	
+	    	ArrayList<Button> list = new ArrayList<Button>(4);
+	    	list.add((Button)findViewById(R.id.Answer1));
+	    	list.add((Button)findViewById(R.id.Answer2));
+	    	list.add((Button)findViewById(R.id.Answer3));
+	    	list.add((Button)findViewById(R.id.Answer4));
+	    	
+	    	Collections.shuffle(list);
+	    	
+	    	Button btn = list.remove(0);
+	    	btn.setText(currentQuestion.getCorrectAnswer());
+	    	btn.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					score += 1;
+	    	    	updateQuestions();
+				}
+			});
+	    	btn = list.remove(0);
+	    	btn.setText(WrongAnswers[0]);
+	    	btn.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+				    endQuestions();					
+				}
+			});
+	    	btn = list.remove(0);
+	    	btn.setText(WrongAnswers[1]);
+	    	btn.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+				    endQuestions();					
+				}
+			});
+			btn = list.remove(0);
+	    	btn.setText(WrongAnswers[2]);
+	    	btn.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+				    endQuestions();					
+				}
+			});
     	}
     	catch(Exception EX)
     	{
-    		System.out.println(EX);
+    		Log.e("Questions", EX.getMessage());
     	}
 	}
-    
-    public void correctAnswer(View view) {
-    	score += 1;
-    	updateQuestions();
-    }
     
     public void endQuestions() {
     	Intent resultIntent = new Intent();
@@ -69,10 +128,10 @@ public class Questions extends Activity {
     }
     
     public void updateQuestions() {
-    	if (score >= 10) {
+    	if (score == 13) {
     		endQuestions();
-    		nextQuestion();
     	}
+		nextQuestion();
     }
     
     public void nextQuestion()

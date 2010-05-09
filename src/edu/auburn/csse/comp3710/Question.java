@@ -8,16 +8,13 @@ import android.widget.TextView;
 import edu.auburn.csse.comp3710.DataHelper.QuestionTypes;
 
 public class Question {
-
-	
 	private String Question;
 	private String CorrectAnswer;
 	private String[] WrongAnswer = new String[3];
 	private String QuestionHint;
 	
-	public Question(DataHelper QuestionDB, int difficulty)
-	{		
-    	String[] currentQuestion = QuestionDB.selectQuestion(QuestionTypes.Sports, difficulty); 
+	public Question(DataHelper QuestionDB, int difficulty, QuestionTypes topic) {		
+    	String[] currentQuestion = QuestionDB.selectQuestion(topic, difficulty); 
     	
     	Question = currentQuestion[0];
     	CorrectAnswer = currentQuestion[1];
@@ -89,7 +86,4 @@ public class Question {
 	{
 		return Question;
 	}
-	
-	
-	
 }
