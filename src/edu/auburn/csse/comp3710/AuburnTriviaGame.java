@@ -1,6 +1,5 @@
 package edu.auburn.csse.comp3710;
 
-import edu.auburn.csse.comp3710.DataHelper.QuestionTypes;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -22,32 +21,24 @@ public class AuburnTriviaGame extends Activity {
         startActivity(new Intent(this, AuburnTriviaSplash.class));
     }
     
+    public void highScores(View v) {
+    	Log.d("HighScores", "starting high scores");
+        startActivity(new Intent(this, AuburnTriviaHighScores.class));
+    }
+    
     public void newGame(View v) {
-    	final CharSequence[] items = {"Easy", "Normal", "Hard", "Very Hard"};
     	final CharSequence[] topics = {"Any", "Engineering", "Sports", "General"};
     	final AuburnTriviaGame that = this;
     	Log.d("newGame", "started");
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setTitle("Pick a difficulty");
-    	builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+    	builder.setTitle("Pick a Topic");
+    	builder.setSingleChoiceItems(topics, -1, new DialogInterface.OnClickListener() {
     		@Override
     	    public void onClick(DialogInterface dialog, int item) {
-    			final int difficulty = item;
-    			dialog.dismiss();
-    			AlertDialog.Builder builder = new AlertDialog.Builder(that);
-    	    	builder.setTitle("Pick a Topic");
-    	    	builder.setSingleChoiceItems(topics, -1, new DialogInterface.OnClickListener() {
-    	    		@Override
-    	    	    public void onClick(DialogInterface dialog, int item) {
-    	    	        Intent game = new Intent(that, Questions.class);
-    	    	        game.putExtra("difficulty", difficulty);
-    	    	        game.putExtra("topic", item);
-    	    	        dialog.dismiss();
-    	    	        startActivityForResult(game, 1);
-    	    	    }
-    	    	});
-    	    	AlertDialog alert = builder.create();
-    	    	alert.show();
+    	        Intent game = new Intent(that, Questions.class);
+    	        game.putExtra("topic", item);
+    	        dialog.dismiss();
+    	        startActivityForResult(game, 1);
     	    }
     	});
     	AlertDialog alert = builder.create();
@@ -63,7 +54,7 @@ public class AuburnTriviaGame extends Activity {
       			int tabIndex = data.getIntExtra("result", 0);
       			Context context = getApplicationContext();
       			CharSequence text = "Correct Answers: " + Integer.toString(tabIndex);
-      			int duration = Toast.LENGTH_SHORT;
+      			int duration = Toast.LENGTH_LONG;
 
       			Toast toast = Toast.makeText(context, text, duration);
       			toast.show();

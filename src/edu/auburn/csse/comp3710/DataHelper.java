@@ -4,13 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.List;
-
-
 
 public class DataHelper {
 
@@ -21,9 +15,7 @@ public class DataHelper {
    
    private Context context;
    private SQLiteDatabase db;
-
-   private SQLiteStatement insertStmt;
-
+   
    public DataHelper(Context context) {
       this.context = context;
       OpenHelper openHelper = new OpenHelper(this.context);
@@ -48,6 +40,9 @@ public class DataHelper {
    public void clearUsed() {
 	   try {
 		   this.db.rawQuery("UPDATE questions SET used = 0", null);
+	   }
+	   catch(Exception ex) {
+		   Log.e("Clear", "Clearing used flag failed");
 	   }
    }
    

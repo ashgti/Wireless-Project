@@ -5,4 +5,5 @@
 <string name="NewGame">New Game</string>
 <string name="HighScores">High Scores</string>
 <string name="SplashText">By: Logan Cannon and John Harrison</string>
+<string name="HighScoresTitle">High Scores: </string>
 </resources>
