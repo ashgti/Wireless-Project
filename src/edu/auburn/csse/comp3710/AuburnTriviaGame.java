@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class AuburnTriviaGame extends Activity {
     	final CharSequence[] items = {"Easy", "Normal", "Hard", "Very Hard"};
     	final CharSequence[] topics = {"Any", "Engineering", "Sports", "General"};
     	final AuburnTriviaGame that = this;
+    	Log.d("newGame", "started");
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
     	builder.setTitle("Pick a difficulty");
     	builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
