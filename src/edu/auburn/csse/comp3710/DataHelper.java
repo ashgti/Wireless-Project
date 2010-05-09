@@ -55,20 +55,27 @@ public class DataHelper {
 	   
 	   try
 	   {
-		   String[] columns = {"question", "correctAnswer"};
 		   //TODO: deal with when select doesnt exist
 		   switch (type) {
 		   case Any:
-			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint from Questions where difficulty = " + difficulty + " and used = 0;", null);
+			   checkUsed(difficulty, "Any");
+			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0;", null);
+			   setUsed(question);
 			   break;
-		   case Eng: 
-			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint from Questions where difficulty = " + difficulty + " and used = 0 and type='eng';", null);
+		   case Eng:
+			   checkUsed(difficulty, "Eng");
+			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0 and type='eng';", null);
+			   setUsed(question);
 			   break;
 		   case General:
-			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint from Questions where difficulty = " + difficulty + " and used = 0 and type='general';", null);
+			   checkUsed(difficulty, "General");
+			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0 and type='general';", null);
+			   setUsed(question);
 			   break;
 		   case Sports:
-			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint from Questions where difficulty = " + difficulty + " and used = 0 and type='sports';", null);
+			   checkUsed(difficulty, "sports");
+			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0 and type='sports';", null);
+			   setUsed(question);
 			   break;
 		   }
 		   
@@ -91,6 +98,43 @@ public class DataHelper {
 	   
 	   return result;
 	   
+   }
+   
+   private void checkUsed(int difficulty, String type) {
+	// If all questions have been used for difficulty, reset used bit
+	Cursor usedCount = null;   
+	   
+	usedCount = this.db.rawQuery("select count(*) from Questions where used = 0 and difficulty =" + difficulty + " and type = '" + type + "'", null);
+	
+	usedCount.moveToFirst();
+	
+	int allUsed = usedCount.getInt(0);
+	
+	if(allUsed == 0)
+	{
+		String currentQuery = "update Questions set used = 0 where difficulty = " + difficulty + " and type = '" + type + "'";
+		
+		this.db.execSQL(currentQuery);
+	}
+	
+}
+
+private void setUsed(Cursor question)
+   {
+	   int QuestionId = 0;
+	   
+	   question.moveToFirst();
+	   
+	   QuestionId = question.getInt(6);
+	   
+	   try
+	   {
+		   this.db.execSQL("update Questions SET used = 1 where id = " + QuestionId);
+	   }
+	   catch(Exception ex)
+	   {
+		   Log.e("DBHelper", ex.getMessage());
+	   }
    }
 
    private static class OpenHelper extends SQLiteOpenHelper {
