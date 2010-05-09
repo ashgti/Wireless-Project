@@ -77,7 +77,7 @@ public class Question {
 		return CorrectAnswer;
 	}
 	
-	public String executeHint()
+	public String getHint()
 	{
 		return QuestionHint;
 	}

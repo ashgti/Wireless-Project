@@ -9,6 +9,7 @@ import edu.auburn.csse.comp3710.DataHelper.QuestionTypes;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -60,7 +61,24 @@ public class Questions extends Activity {
         setContentView(R.layout.questions);
         nextQuestion(); 
         
-        score = 0;   
+        score = 0;  
+        
+        //set up lifeline listners
+        
+        Button HintButtom = (Button)findViewById(R.id.HintButton);
+        HintButtom.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				TextView hintText = (TextView)findViewById(R.id.hint);
+				hintText.setVisibility(hintText.VISIBLE);
+				Button hintButton = (Button)findViewById(R.id.HintButton);
+				hintButton.setVisibility(hintButton.INVISIBLE);
+				
+			}
+		});
+        
+        
     }
     
     public void setCurrentQuestion(int difficulty) {
@@ -69,14 +87,19 @@ public class Questions extends Activity {
     	//TODO: Dynamically change order so first answer is not always the correct answer 
     	try {
 	    	TextView question = (TextView)findViewById(R.id.Question);
-	    	question.setText(currentQuestion.getQuestion());
+	    	question.setText(currentQuestion.getQuestion());	    	
 	    	
+	    	TextView hint = (TextView)findViewById(R.id.hint);
+	    	hint.setText("HINT:  " + currentQuestion.getHint());
+	    	hint.setVisibility(hint.INVISIBLE);
 	    	
 	    	ArrayList<Button> list = new ArrayList<Button>(4);
 	    	list.add((Button)findViewById(R.id.Answer1));
 	    	list.add((Button)findViewById(R.id.Answer2));
 	    	list.add((Button)findViewById(R.id.Answer3));
 	    	list.add((Button)findViewById(R.id.Answer4));
+	    	
+	    	
 	    	
 	    	Collections.shuffle(list);
 	    	
@@ -117,7 +140,9 @@ public class Questions extends Activity {
     	catch(Exception EX)
     	{
     		Log.e("Questions", EX.getMessage());
-    	}
+    	} 	
+    	
+    	
 	}
     
     public void endQuestions() {
@@ -171,6 +196,12 @@ public class Questions extends Activity {
 	    	
 	    	QuestionCount++;
     	}
+    }
+    
+    public void executeHint()
+    {
+    	TextView hint = (TextView)findViewById(R.id.hint);
+    	hint.setVisibility(1);
     }
 
 }
