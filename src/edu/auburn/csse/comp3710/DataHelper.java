@@ -32,8 +32,7 @@ public class DataHelper {
       checkData();
    }
 
-   private void checkData() 
-   {
+   private void checkData() {
 	   try
 	   {
 		   Cursor cursor = this.db.rawQuery("select * from Questions", null);
@@ -44,7 +43,6 @@ public class DataHelper {
 	   {
 		   Log.e("CheckData", ex.getMessage());
 	   }
-	
    }
    
    public String[] selectQuestion(QuestionTypes type, int difficulty)
@@ -76,6 +74,7 @@ public class DataHelper {
 			   checkUsed(difficulty, "sports");
 			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0 and type='sports';", null);
 			   setUsed(question);
+			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint from Questions where difficulty = " + difficulty + " and used = 0 ORDER BY Random();", null);
 			   break;
 		   }
 		   
