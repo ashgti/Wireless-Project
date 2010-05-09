@@ -58,24 +58,23 @@ public class DataHelper {
 		   switch (type) {
 		   case Any:
 			   checkUsed(difficulty, "Any");
-			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0;", null);
+			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0  ORDER BY RANDOM();", null);
 			   setUsed(question);
 			   break;
 		   case Eng:
 			   checkUsed(difficulty, "Eng");
-			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0 and type='eng';", null);
+			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0 and type='eng'  ORDER BY RANDOM();", null);
 			   setUsed(question);
 			   break;
 		   case General:
 			   checkUsed(difficulty, "General");
-			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0 and type='general';", null);
+			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0 and type='general'  ORDER BY RANDOM();", null);
 			   setUsed(question);
 			   break;
 		   case Sports:
 			   checkUsed(difficulty, "sports");
-			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0 and type='sports';", null);
+			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0 and type='sports' ORDER BY RANDOM();", null);
 			   setUsed(question);
-			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint from Questions where difficulty = " + difficulty + " and used = 0 ORDER BY Random();", null);
 			   break;
 		   }
 		   
@@ -109,6 +108,8 @@ public class DataHelper {
 	usedCount.moveToFirst();
 	
 	int allUsed = usedCount.getInt(0);
+	
+	//TODO: have list of questions for current difficulty used in current gameplay so when all are cleared they are marked as used.
 	
 	if(allUsed == 0)
 	{
