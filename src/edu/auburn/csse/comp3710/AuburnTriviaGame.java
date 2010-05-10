@@ -65,15 +65,16 @@ public class AuburnTriviaGame extends Activity {
     	        scores[4] = settings.getInt("high5", 0);
     	        scores[5] = new_score;
     	        
+    	        // Log.d("Game", "before" + Arrays.toString(scores));
     	        Arrays.sort(scores);
+    	        // Log.d("Game", "before" + Arrays.toString(scores));
     	        SharedPreferences.Editor update = settings.edit();
-    	        
-    	        settings.getInt("high1", scores[5]);
-    	        settings.getInt("high2", scores[4]);
-    	        settings.getInt("high3", scores[3]);
-    	        settings.getInt("high4", scores[2]);
-    	        settings.getInt("high5", scores[1]);
-    	        
+    	            	        
+    	        update.putInt("high1", scores[5]);
+    	        update.putInt("high2", scores[4]);
+    	        update.putInt("high3", scores[3]);
+    	        update.putInt("high4", scores[2]);
+    	        update.putInt("high5", scores[1]);    	        
                 update.commit();
       			
       			Context context = getApplicationContext();

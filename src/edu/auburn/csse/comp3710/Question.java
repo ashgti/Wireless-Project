@@ -31,7 +31,6 @@ public class Question {
 	
 	public String[] getWrongAnswers()
 	{
-		
 		return WrongAnswer;
 	}
 	
@@ -63,8 +62,6 @@ public class Question {
 		}
 		else
 		{
-			
-			
 			while(iterator < 3)
 			{
 				if(WrongAnswer[iterator] != null)

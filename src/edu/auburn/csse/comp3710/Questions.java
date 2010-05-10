@@ -25,7 +25,7 @@ public class Questions extends Activity {
 	int QuestionCount = 1;
 	Question currentQuestion = null;
 	
-	/** Called when the activity is first created. */
+	/* Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,14 +68,12 @@ public class Questions extends Activity {
         
         Button HintButtom = (Button)findViewById(R.id.HintButton);
         HintButtom.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				TextView hintText = (TextView)findViewById(R.id.hint);
 				hintText.setVisibility(hintText.VISIBLE);
 				Button hintButton = (Button)findViewById(R.id.HintButton);
 				hintButton.setVisibility(hintButton.INVISIBLE);
-				
 			}
 		});
         
@@ -118,8 +116,6 @@ public class Questions extends Activity {
 				FiftyFiftyBtn.setVisibility(FiftyFiftyBtn.INVISIBLE);
 			}		
 		});
-        
-        
     }
     
     public void setCurrentQuestion(int difficulty) {
@@ -128,10 +124,10 @@ public class Questions extends Activity {
     	//TODO: Dynamically change order so first answer is not always the correct answer 
     	try {
 	    	TextView question = (TextView)findViewById(R.id.Question);
-	    	question.setText(currentQuestion.getQuestion());	    	
+	    	question.setText(currentQuestion.getQuestion());
 	    	
 	    	TextView hint = (TextView)findViewById(R.id.hint);
-	    	hint.setText("HINT:  " + currentQuestion.getHint());
+	    	hint.setText("HINT: " + currentQuestion.getHint());
 	    	hint.setVisibility(hint.INVISIBLE);
 	    	
 	    	//Always set all buttons as visible incase there has been a 50/50 call
@@ -141,9 +137,7 @@ public class Questions extends Activity {
 	    	list.add((Button)findViewById(R.id.Answer2));
 	    	list.add((Button)findViewById(R.id.Answer3));
 	    	list.add((Button)findViewById(R.id.Answer4));
-	    	
-	    	
-	    	
+
 	    	Collections.shuffle(list);
 	    	
 	    	Button btn = list.remove(0);
@@ -184,12 +178,9 @@ public class Questions extends Activity {
 				}
 			});
     	}
-    	catch(Exception EX)
-    	{
-    		Log.e("Questions", EX.getMessage());
-    	} 	
-    	
-    	
+    	catch(Exception e) {
+    		Log.e("Questions", e.getMessage());
+    	}
 	}
     
     public void endQuestions() {
@@ -209,11 +200,11 @@ public class Questions extends Activity {
     public void nextQuestion()
     {
     	
-    	if(QuestionCount < 13)
+    	if( QuestionCount < 13)
     	{
 	    	difficulty = QuestionCount/3;
 	    	
-	    	if(QuestionCount%3 != 0)
+	    	if (QuestionCount % 3 != 0)
 	    	{
 	    		difficulty++;
 	    	}

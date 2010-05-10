@@ -11,7 +11,7 @@ public class DataHelper {
    private static final String DATABASE_NAME = "AuburnTrivia.db";
    private static final int DATABASE_VERSION = 8;
 
-   public enum QuestionTypes {Any, General, Sports, Eng};
+   public enum QuestionTypes { Any, General, Sports, Eng };
    
    private Context context;
    private SQLiteDatabase db;
@@ -25,8 +25,7 @@ public class DataHelper {
    }
 
    private void checkData() {
-	   try
-	   {
+	   try {
 		   Cursor cursor = this.db.rawQuery("select * from Questions", null);
 		   cursor.moveToFirst();
 		   cursor.isNull(0);
@@ -47,14 +46,12 @@ public class DataHelper {
 	   }
    }
    
-   public String[] selectQuestion(QuestionTypes type, int difficulty)
-   {
+   public String[] selectQuestion(QuestionTypes type, int difficulty) {
 	   Cursor question = null;
 	   
 	   //TODO: set used bit in DB for selected question
 	   
-	   try
-	   {
+	   try {
 		   //TODO: deal with when select doesn't exist
 		   switch (type) {
 		   case Any:
@@ -80,8 +77,7 @@ public class DataHelper {
 		   }
 		   
 	   }
-	   catch(Exception ex)
-	   {
+	   catch(Exception ex) {
 		   Log.e("DBHelper", ex.getMessage());
 	   }
 	   
@@ -114,8 +110,7 @@ public class DataHelper {
 	
 	//TODO: have list of questions for current difficulty used in current gameplay so when all are cleared they are marked as used.
 	
-	if(allUsed == 0)
-	{
+	if(allUsed == 0) {
 		String currentQuery;
 		if (type == "any") {
 			currentQuery = "update questions set used = 0 where difficulty = " + difficulty;
