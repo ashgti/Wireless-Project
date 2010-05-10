@@ -1,10 +1,12 @@
 package edu.auburn.csse.comp3710;
 
+import java.util.Arrays;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +14,8 @@ import android.widget.Toast;
 
 public class AuburnTriviaGame extends Activity {
     /** Called when the activity is first created. */
-	
+	public final String PREFS_NAME = "AuburnTrivia";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +54,30 @@ public class AuburnTriviaGame extends Activity {
       switch(requestCode) { 
       	case (1) : { 
       		if (resultCode == Activity.RESULT_OK) { 
-      			int tabIndex = data.getIntExtra("result", 0);
+      			int new_score = data.getIntExtra("result", 0);
+      			
+      			int[] scores = new int[6];
+    	        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+    	        scores[0] = settings.getInt("high1", 0);
+    	        scores[1] = settings.getInt("high2", 0);
+    	        scores[2] = settings.getInt("high3", 0);
+    	        scores[3] = settings.getInt("high4", 0);
+    	        scores[4] = settings.getInt("high5", 0);
+    	        scores[5] = new_score;
+    	        
+    	        Arrays.sort(scores);
+    	        SharedPreferences.Editor update = settings.edit();
+    	        
+    	        settings.getInt("high1", scores[5]);
+    	        settings.getInt("high2", scores[4]);
+    	        settings.getInt("high3", scores[3]);
+    	        settings.getInt("high4", scores[2]);
+    	        settings.getInt("high5", scores[1]);
+    	        
+                update.commit();
+      			
       			Context context = getApplicationContext();
-      			CharSequence text = "Correct Answers: " + Integer.toString(tabIndex);
+      			CharSequence text = "Correct Answers: " + Integer.toString(new_score);
       			int duration = Toast.LENGTH_LONG;
 
       			Toast toast = Toast.makeText(context, text, duration);

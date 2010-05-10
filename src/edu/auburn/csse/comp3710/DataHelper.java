@@ -30,6 +30,7 @@ public class DataHelper {
 		   Cursor cursor = this.db.rawQuery("select * from Questions", null);
 		   cursor.moveToFirst();
 		   cursor.isNull(0);
+		   clearUsed();
 	   }
 	   catch(Exception ex)
 	   {
@@ -54,26 +55,26 @@ public class DataHelper {
 	   
 	   try
 	   {
-		   //TODO: deal with when select doesnt exist
+		   //TODO: deal with when select doesn't exist
 		   switch (type) {
 		   case Any:
-			   checkUsed(difficulty, "Any");
-			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0  ORDER BY RANDOM();", null);
+			   checkUsed(difficulty, "any");
+			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0 ORDER BY Random();", null);
 			   setUsed(question);
 			   break;
 		   case Eng:
-			   checkUsed(difficulty, "Eng");
-			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0 and type='eng'  ORDER BY RANDOM();", null);
+			   checkUsed(difficulty, "eng");
+			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0 and type='eng' ORDER BY Random();", null);
 			   setUsed(question);
 			   break;
 		   case General:
-			   checkUsed(difficulty, "General");
-			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0 and type='general'  ORDER BY RANDOM();", null);
+			   checkUsed(difficulty, "general");
+			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0 and type='general' ORDER BY Random();", null);
 			   setUsed(question);
 			   break;
 		   case Sports:
 			   checkUsed(difficulty, "sports");
-			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0 and type='sports' ORDER BY RANDOM();", null);
+			   question = this.db.rawQuery("select question, correctAnswer, wrongAnswer1, wrongAnswer2, wrongAnswer3, hint, id from Questions where difficulty = " + difficulty + " and used = 0 and type='sports' ORDER BY Random();", null);
 			   setUsed(question);
 			   break;
 		   }
@@ -86,14 +87,11 @@ public class DataHelper {
 	   
 	   String result[] = new String[6];
 	   
-	   
 	   question.moveToFirst();
 	   
-	   for(int iterator = 0; iterator < 6; iterator++ )
-	   {
+	   for(int iterator = 0; iterator < 6; iterator++) {
 		   result[iterator] = question.getString(iterator);
 	   }
-	   
 	   
 	   return result;
 	   
@@ -103,7 +101,12 @@ public class DataHelper {
 	// If all questions have been used for difficulty, reset used bit
 	Cursor usedCount = null;   
 	   
-	usedCount = this.db.rawQuery("select count(*) from Questions where used = 0 and difficulty =" + difficulty + " and type = '" + type + "'", null);
+	if (type == "any") {
+		usedCount = this.db.rawQuery("select count(*) from questions where used = 0 and difficulty =" + difficulty, null);
+	}
+	else {
+		usedCount = this.db.rawQuery("select count(*) from questions where used = 0 and difficulty =" + difficulty + " and type = '" + type + "'", null);
+	}
 	
 	usedCount.moveToFirst();
 	
@@ -113,7 +116,13 @@ public class DataHelper {
 	
 	if(allUsed == 0)
 	{
-		String currentQuery = "update Questions set used = 0 where difficulty = " + difficulty + " and type = '" + type + "'";
+		String currentQuery;
+		if (type == "any") {
+			currentQuery = "update questions set used = 0 where difficulty = " + difficulty;
+		}
+		else {
+			currentQuery = "update questions set used = 0 where difficulty = " + difficulty + " and type = '" + type + "'";
+		}
 		
 		this.db.execSQL(currentQuery);
 	}
