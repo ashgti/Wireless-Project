@@ -116,6 +116,87 @@ public class Questions extends Activity {
 				FiftyFiftyBtn.setVisibility(FiftyFiftyBtn.INVISIBLE);
 			}		
 		});
+        
+        
+        Button ButtonCram = (Button)findViewById(R.id.CramButton);
+        ButtonCram.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				Button answer1 = (Button)findViewById(R.id.Answer1);
+				Button answer2 = (Button)findViewById(R.id.Answer2);
+				Button answer3 = (Button)findViewById(R.id.Answer3);
+				Button answer4 = (Button)findViewById(R.id.Answer4);
+				
+				answer1.setVisibility(answer1.INVISIBLE);
+				answer2.setVisibility(answer2.INVISIBLE);
+				answer3.setVisibility(answer3.INVISIBLE);
+				answer4.setVisibility(answer4.INVISIBLE);
+				
+				
+				//random number between 0-3
+				Random generator = new Random();
+				int generatedRandom = generator.nextInt(100);
+				
+				if(answer1.getText() == currentQuestion.getCorrectAnswer())
+				{					
+					if(generatedRandom < 75)
+					{
+						answer1.setVisibility(answer1.VISIBLE);
+					}
+					else
+					{
+						answer2.setVisibility(answer2.VISIBLE);
+					}
+					
+				}
+				
+				else if(answer2.getText() == currentQuestion.getCorrectAnswer())
+				{
+					if(generatedRandom < 75)
+					{
+						answer2.setVisibility(answer2.VISIBLE);
+					}
+					else
+					{
+						answer3.setVisibility(answer3.VISIBLE);
+					}
+					
+				}
+				
+				else if(answer3.getText() == currentQuestion.getCorrectAnswer())
+				{
+					if(generatedRandom < 75)
+					{
+						answer3.setVisibility(answer3.VISIBLE);
+					}
+					else
+					{
+						answer4.setVisibility(answer4.VISIBLE);
+					}
+					
+				}
+				
+				else if(answer4.getText() == currentQuestion.getCorrectAnswer())
+				{
+					if(generatedRandom < 75)
+					{
+						answer4.setVisibility(answer4.VISIBLE);
+					}
+					else
+					{
+						answer2.setVisibility(answer2.VISIBLE);
+					}
+				
+				}
+				
+				Button CramButton = (Button)findViewById(R.id.CramButton);
+				CramButton.setVisibility(CramButton.INVISIBLE);
+				
+			}
+		});
+        
     }
     
     public void setCurrentQuestion(int difficulty) {
