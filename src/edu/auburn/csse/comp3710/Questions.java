@@ -40,12 +40,9 @@ public class Questions extends Activity {
         	topic = QuestionTypes.Any;
         	break;
         case 1:
-        	topic = QuestionTypes.Eng;
-        	break;
-        case 2:
         	topic = QuestionTypes.Sports;
         	break;
-        case 3:
+        case 2:
         	topic = QuestionTypes.General;
         	break;
         }
