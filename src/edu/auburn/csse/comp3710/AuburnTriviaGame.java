@@ -30,7 +30,7 @@ public class AuburnTriviaGame extends Activity {
     }
     
     public void newGame(View v) {
-    	final CharSequence[] topics = {"Any", "Engineering", "Sports", "General"};
+    	final CharSequence[] topics = {"Any", "Sports", "General"};
     	final AuburnTriviaGame that = this;
     	Log.d("newGame", "started");
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
