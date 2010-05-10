@@ -272,7 +272,7 @@ public class Questions extends Activity {
     }
     
     public void updateQuestions() {
-    	if (score == 13) {
+    	if (score == 12) {
     		endQuestions();
     	}
 		nextQuestion();
@@ -280,6 +280,8 @@ public class Questions extends Activity {
     
     public void nextQuestion()
     {
+    	
+    	TextView classTextView = (TextView)findViewById(R.id.classification);
     	
     	if( QuestionCount < 13)
     	{
@@ -294,18 +296,22 @@ public class Questions extends Activity {
 	    	{
 				case 1:
 					setCurrentQuestion(1);
+					classTextView.setText("Classification: FRESHMAN");
 					break;
 	
 				case 2:
 					setCurrentQuestion(2);
+					classTextView.setText("Classification: SOPHOMORE");
 					break;
 		
 				case 3:
 					setCurrentQuestion(3);
+					classTextView.setText("Classification: JUNIOR");
 					break;
 	
 				case 4:
 					setCurrentQuestion(4);
+					classTextView.setText("Classification: SENIOR");
 					break;
 	
 				

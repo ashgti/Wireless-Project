@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 <TextView  
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    android:layout_gravity="center_horizontal"/>
+    android:layout_gravity="center"
+    android:text="Welcome to the Auburn Trivia game!"/>
     
-<Button android:text="@string/NewGame" android:id="@+id/NewGame" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="newGame"></Button>
-<Button android:text="@string/HighScores" android:id="@+id/HighScores" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="highScores"></Button>
+<Button android:text="@string/NewGame" android:id="@+id/NewGame" android:layout_width="fill_parent" android:layout_height="wrap_content" android:onClick="newGame"></Button>
+<Button android:text="@string/HighScores" android:id="@+id/HighScores" android:layout_width="fill_parent" android:layout_height="wrap_content" android:onClick="highScores"></Button>
 </LinearLayout>

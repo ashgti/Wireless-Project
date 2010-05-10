@@ -9,7 +9,7 @@ import android.util.Log;
 public class DataHelper {
 
    private static final String DATABASE_NAME = "AuburnTrivia.db";
-   private static final int DATABASE_VERSION = 8;
+   private static final int DATABASE_VERSION = 11;
 
    public enum QuestionTypes { Any, General, Sports, Eng };
    
@@ -49,10 +49,9 @@ public class DataHelper {
    public String[] selectQuestion(QuestionTypes type, int difficulty) {
 	   Cursor question = null;
 	   
-	   //TODO: set used bit in DB for selected question
 	   
 	   try {
-		   //TODO: deal with when select doesn't exist
+
 		   switch (type) {
 		   case Any:
 			   checkUsed(difficulty, "any");
@@ -174,6 +173,20 @@ private void setUsed(Cursor question)
 		   db.execSQL("INSERT INTO Questions (type, Question, CorrectAnswer, WrongAnswer1, WrongAnswer2, WrongAnswer3, Hint, Difficulty, Used) VALUES ('sports', \"What was Auburn's first bowl game?\", 'Bacardi Bowl', 'Cotton Bowl', 'Orange Bowl', 'Gator Bowl', 'No Big D',3,0)");
 		   db.execSQL("INSERT INTO Questions (type, Question, CorrectAnswer, WrongAnswer1, WrongAnswer2, WrongAnswer3, Hint, Difficulty, Used) VALUES ('general', 'What architectural detail is used as the emblem representing the College of Engineering?', 'Cupola', 'Arch', 'Dormer', 'Buttress', 'No Butts',2,0)");
 		   db.execSQL("INSERT INTO Questions (type, Question, CorrectAnswer, WrongAnswer1, WrongAnswer2, WrongAnswer3, Hint, Difficulty, Used) VALUES ('general', \"What is the name of the iconic building that houses the President's Office?\", 'Samford', 'Shelby ', 'Thach', 'Haley', 'no Shelby',1,0)");
+		   db.execSQL("INSERT INTO Questions (type, Question, CorrectAnswer, WrongAnswer1, WrongAnswer2, WrongAnswer3, Hint, Difficulty, Used) VALUES ('general', \"What do fans do to celebrate Auburn Football victories?\", 'Roll Toomers Corner', 'Ring Samfords Bell', 'Light fires on the field', 'Rush the field', 'Makes a mess', 1, 0)");
+		   db.execSQL("INSERT INTO Questions (type, Question, CorrectAnswer, WrongAnswer1, WrongAnswer2, WrongAnswer3, Hint, Difficulty, Used) VALUES ('general', 'Who is the student union building named after?', 'Foy', 'Samford', 'Shugg', 'Hare', 'Not Football', 2, 0)");
+		   db.execSQL("INSERT INTO Questions (type, Question, CorrectAnswer, WrongAnswer1, WrongAnswer2, WrongAnswer3, Hint, Difficulty, Used) VALUES ('general', 'What is the name of the football stadium?', 'Jordan-Hare', 'Dye-Tuberville', 'Hitchcock', 'The Jungle' ,'Double Name', 1, 0)");
+		   db.execSQL("INSERT INTO Questions (type, Question, CorrectAnswer, WrongAnswer1, WrongAnswer2, WrongAnswer3, Hint, Difficulty, Used) VALUES ('general', \"What is the name of the new group of dorms on Auburn's campus \", 'The Village', 'The Hill', 'The Valley', 'The Quad', 'Group of People', 1, 0)");
+		   db.execSQL("INSERT INTO Questions (type, Question, CorrectAnswer, WrongAnswer1, WrongAnswer2, WrongAnswer3, Hint, Difficulty, Used) VALUES ('general', 'How many stories tall is Haley Center?', '9', '50', '3', '7', 'tall for Auburn', 3, 0)");
+		   db.execSQL("INSERT INTO Questions (type, Question, CorrectAnswer, WrongAnswer1, WrongAnswer2, WrongAnswer3, Hint, Difficulty, Used) VALUES ('general', 'What used to reside in the spot where the new student center occupies?', \"Eagle's cage\", 'Practice Field', 'Old Student Center', 'A playground', 'Not for playing', 4, 0)");
+		   db.execSQL("INSERT INTO Questions (type, Question, CorrectAnswer, WrongAnswer1, WrongAnswer2, WrongAnswer3, Hint, Difficulty, Used) VALUES ('sports', \"Who is Auburn's Defensive Cooridinator?\", 'Ted Roof' , 'Will Muschamp', 'Gene Chizik', 'Tracy Rocker', 'Its on fire', 3, 0)");
+		   db.execSQL("INSERT INTO Questions (type, Question, CorrectAnswer, WrongAnswer1, WrongAnswer2, WrongAnswer3, Hint, Difficulty, Used) VALUES ('sports', \"Who is Auburn's Offensive Cooridinator?\", 'Gus Malzahn', 'Al Borges', 'Trooper Taylor', 'Curtis Luper', 'no Troop', 3, 0)");
+		   db.execSQL("INSERT INTO Questions (type, Question, CorrectAnswer, WrongAnswer1, WrongAnswer2, WrongAnswer3, Hint, Difficulty, Used) VALUES ('general', 'How many seasons did Coach Tuberville run the Auburn football team?', '10', '9', '7', '5', 'long time', 4, 0)");
+		   db.execSQL("INSERT INTO Questions (type, Question, CorrectAnswer, WrongAnswer1, WrongAnswer2, WrongAnswer3, Hint, Difficulty, Used) VALUES ('general', 'How much did the original Aubie costume cost?', '1350', '5000', '500', '2500', 'wild guess', 4, 0)");
+		   db.execSQL("INSERT INTO Questions (type, Question, CorrectAnswer, WrongAnswer1, WrongAnswer2, WrongAnswer3, Hint, Difficulty, Used) VALUES ('general', 'When was Aubie first created?', '1959', '1964', '1962', '1955', 'old', 4, 0)");
+		   db.execSQL("INSERT INTO Questions (type, Question, CorrectAnswer, WrongAnswer1, WrongAnswer2, WrongAnswer3, Hint, Difficulty, Used) VALUES ('general', \"When was Aubie's first appearance\", '1979 SEC Baskeball Tourney', '1979 Opening Football Game', '1982 Bowl Game', '1976 Bowl Game', 'No Bowl', 4, 0)");
+		   db.execSQL("INSERT INTO Questions (type, Question, CorrectAnswer, WrongAnswer1, WrongAnswer2, WrongAnswer3, Hint, Difficulty, Used) VALUES ('general', 'What is the iconic restaurant known for its burger night?', 'Niffers', 'Cheeburger Cheeburger', 'Locos', 'Sonic', 'Not the obvious', 3, 0)"); 
+		   
 	   }	
 
 	   @Override
