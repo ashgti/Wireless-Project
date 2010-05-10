@@ -13,7 +13,13 @@
 <Button android:onClick="wrongAnswer" android:text="A2" android:id="@+id/Answer2" android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
 <Button android:onClick="wrongAnswer" android:text="A3" android:id="@+id/Answer3" android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
 <Button android:onClick="wrongAnswer" android:text="A4" android:id="@+id/Answer4" android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
- <TextView android:text="" android:id="@+id/wrongAnswerAlert" android:layout_height="wrap_content" android:layout_width="fill_parent"></TextView>
+ <TextView android:text="" android:id="@+id/hint" android:layout_height="wrap_content" android:layout_width="fill_parent"></TextView>
+ <TextView android:text="Classification: " android:id="@+id/classification" android:layout_height="wrap_content" android:layout_width="fill_parent"></TextView>
+ <LinearLayout android:layout_width="fill_parent" android:layout_height="60dip" android:orientation="horizontal">
+ <Button android:onClick="executeFiftyFifty" android:text="50/50" android:id="@+id/FiftyFiftyButton" android:layout_width="100dip" android:layout_height="50dip"></Button>
+ <Button android:onClick="executeCram" android:text="Cram" android:id="@+id/CramButton" android:layout_width="100dip" android:layout_height="50dip"></Button>
+ <Button android:onClick="executeHint" android:text="Hint" android:id="@+id/HintButton" android:layout_width="100dip" android:layout_height="50dip"></Button>
+ </LinearLayout>
 </LinearLayout>
 
 </LinearLayout>

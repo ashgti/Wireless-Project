@@ -55,7 +55,7 @@ public class DataHelper {
 	   
 	   try
 	   {
-		   //TODO: deal with when select doesnt exist
+		   //TODO: deal with when select doesn't exist
 		   switch (type) {
 		   case Any:
 			   checkUsed(difficulty, "any");
@@ -111,6 +111,8 @@ public class DataHelper {
 	usedCount.moveToFirst();
 	
 	int allUsed = usedCount.getInt(0);
+	
+	//TODO: have list of questions for current difficulty used in current gameplay so when all are cleared they are marked as used.
 	
 	if(allUsed == 0)
 	{

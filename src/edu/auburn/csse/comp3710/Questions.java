@@ -9,6 +9,7 @@ import edu.auburn.csse.comp3710.DataHelper.QuestionTypes;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,7 @@ public class Questions extends Activity {
 	public DataHelper QuestionDB;
 	int difficulty = 1;
 	int QuestionCount = 1;
+	Question currentQuestion = null;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -60,28 +62,93 @@ public class Questions extends Activity {
         setContentView(R.layout.questions);
         nextQuestion(); 
         
-        score = 0;   
+        score = 0;  
+        
+        //set up lifeline listners
+        
+        Button HintButtom = (Button)findViewById(R.id.HintButton);
+        HintButtom.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				TextView hintText = (TextView)findViewById(R.id.hint);
+				hintText.setVisibility(hintText.VISIBLE);
+				Button hintButton = (Button)findViewById(R.id.HintButton);
+				hintButton.setVisibility(hintButton.INVISIBLE);
+				
+			}
+		});
+        
+        Button FiftyFiftyButton = (Button)findViewById(R.id.FiftyFiftyButton);
+        FiftyFiftyButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Button answer1 = (Button)findViewById(R.id.Answer1);
+				Button answer2 = (Button)findViewById(R.id.Answer2);
+				Button answer3 = (Button)findViewById(R.id.Answer3);
+				Button answer4 = (Button)findViewById(R.id.Answer4);
+				int deleted = 0;
+				
+				if(answer1.getText() != currentQuestion.getCorrectAnswer() && deleted != 2)
+				{
+					answer1.setVisibility(answer1.INVISIBLE);
+					deleted++;
+				}
+				
+				if(answer2.getText() != currentQuestion.getCorrectAnswer() && deleted != 2)
+				{
+					answer2.setVisibility(answer2.INVISIBLE);
+					deleted++;
+				}
+				
+				if(answer3.getText() != currentQuestion.getCorrectAnswer() && deleted != 2)
+				{
+					answer3.setVisibility(answer3.INVISIBLE);
+					deleted++;
+				}
+				
+				if(answer4.getText() != currentQuestion.getCorrectAnswer() && deleted != 2)
+				{
+					answer4.setVisibility(answer4.INVISIBLE);
+					deleted++;
+				}
+				
+				Button FiftyFiftyBtn = (Button)findViewById(R.id.FiftyFiftyButton);
+				FiftyFiftyBtn.setVisibility(FiftyFiftyBtn.INVISIBLE);
+			}		
+		});
+        
+        
     }
     
     public void setCurrentQuestion(int difficulty) {
-    	Question currentQuestion = new Question(QuestionDB, difficulty, topic);
+    	currentQuestion = new Question(QuestionDB, difficulty, topic);
     	String[] WrongAnswers = currentQuestion.getWrongAnswers();
     	//TODO: Dynamically change order so first answer is not always the correct answer 
     	try {
 	    	TextView question = (TextView)findViewById(R.id.Question);
-	    	question.setText(currentQuestion.getQuestion());
+	    	question.setText(currentQuestion.getQuestion());	    	
 	    	
+	    	TextView hint = (TextView)findViewById(R.id.hint);
+	    	hint.setText("HINT:  " + currentQuestion.getHint());
+	    	hint.setVisibility(hint.INVISIBLE);
 	    	
+	    	//Always set all buttons as visible incase there has been a 50/50 call
+	    		    	
 	    	ArrayList<Button> list = new ArrayList<Button>(4);
 	    	list.add((Button)findViewById(R.id.Answer1));
 	    	list.add((Button)findViewById(R.id.Answer2));
 	    	list.add((Button)findViewById(R.id.Answer3));
 	    	list.add((Button)findViewById(R.id.Answer4));
 	    	
+	    	
+	    	
 	    	Collections.shuffle(list);
 	    	
 	    	Button btn = list.remove(0);
 	    	btn.setText(currentQuestion.getCorrectAnswer());
+	    	btn.setVisibility(btn.VISIBLE);
 	    	btn.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -91,6 +158,7 @@ public class Questions extends Activity {
 			});
 	    	btn = list.remove(0);
 	    	btn.setText(WrongAnswers[0]);
+	    	btn.setVisibility(btn.VISIBLE);
 	    	btn.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -99,6 +167,7 @@ public class Questions extends Activity {
 			});
 	    	btn = list.remove(0);
 	    	btn.setText(WrongAnswers[1]);
+	    	btn.setVisibility(btn.VISIBLE);
 	    	btn.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -107,6 +176,7 @@ public class Questions extends Activity {
 			});
 			btn = list.remove(0);
 	    	btn.setText(WrongAnswers[2]);
+	    	btn.setVisibility(btn.VISIBLE);
 	    	btn.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -117,7 +187,9 @@ public class Questions extends Activity {
     	catch(Exception EX)
     	{
     		Log.e("Questions", EX.getMessage());
-    	}
+    	} 	
+    	
+    	
 	}
     
     public void endQuestions() {
@@ -171,6 +243,12 @@ public class Questions extends Activity {
 	    	
 	    	QuestionCount++;
     	}
+    }
+    
+    public void executeHint()
+    {
+    	TextView hint = (TextView)findViewById(R.id.hint);
+    	hint.setVisibility(1);
     }
 
 }
